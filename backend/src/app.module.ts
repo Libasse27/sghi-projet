@@ -20,6 +20,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { EmergencyModule } from './modules/emergency/emergency.module';
 import { PatientsModule } from './modules/patients/patients.module';
 import { ConsultationsModule } from './modules/consultations/consultations.module';
+import { AiAssistantModule } from './modules/ai-assistant/ai-assistant.module';
 
 // TODO: Importer les modules au fur et à mesure de leur création
 // import { LaboratoryModule } from './modules/laboratory/laboratory.module';
@@ -83,6 +84,7 @@ import { ConsultationsModule } from './modules/consultations/consultations.modul
       EmergencyModule,
       PatientsModule,
       ConsultationsModule,
+      AiAssistantModule,
     ] : []),
     // LaboratoryModule,
     // ImagingModule,
