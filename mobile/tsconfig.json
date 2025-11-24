@@ -1,0 +1,47 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["es2019", "es2020.bigint", "es2020.string", "es2020.symbol.wellknown"],
+    "allowJs": true,
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@screens": ["screens"],
+      "@screens/*": ["screens/*"],
+      "@components": ["components"],
+      "@components/*": ["components/*"],
+      "@navigation": ["navigation"],
+      "@navigation/*": ["navigation/*"],
+      "@store": ["store"],
+      "@store/*": ["store/*"],
+      "@services": ["services"],
+      "@services/*": ["services/*"],
+      "@utils": ["utils"],
+      "@utils/*": ["utils/*"],
+      "@assets": ["assets"],
+      "@assets/*": ["assets/*"],
+      "@styles": ["styles"],
+      "@styles/*": ["styles/*"],
+      "@types": ["types"],
+      "@types/*": ["types/*"],
+      "@shared": ["../../shared"],
+      "@shared/*": ["../../shared/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
+}

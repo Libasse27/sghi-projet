@@ -1,0 +1,173 @@
+# Dependencies
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+*.coverage
+.nyc_output
+
+# Production builds
+dist/
+build/
+*/dist/
+*/build/
+out/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Uploads & temporary files
+uploads/
+temp/
+tmp/
+*.tmp
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+data/
+pgdata/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.sublime-*
+.project
+.settings/
+.classpath
+
+# TypeScript
+*.tsbuildinfo
+
+# Docker
+docker-compose.override.yml
+*.env.docker
+
+# Backend specific
+backend/dist/
+backend/uploads/
+backend/logs/
+
+# Desktop specific
+desktop/dist/
+desktop/build/
+desktop/release/
+desktop/.electron/
+
+# Mobile specific
+mobile/android/app/build/
+mobile/android/.gradle/
+mobile/ios/Pods/
+mobile/ios/build/
+mobile/.expo/
+mobile/.expo-shared/
+
+# React Native
+# OSX
+mobile/ios/build/
+mobile/ios/Pods/
+mobile/ios/Podfile.lock
+mobile/ios/.xcode.env.local
+
+# Android
+mobile/android/.gradle
+mobile/android/app/build
+mobile/android/build
+mobile/android/.idea
+mobile/android/local.properties
+mobile/android/captures/
+mobile/android/.externalNativeBuild
+mobile/android/.cxx
+mobile/android/google-services.json
+
+# Fastlane
+mobile/ios/fastlane/report.xml
+mobile/ios/fastlane/Preview.html
+mobile/ios/fastlane/screenshots
+mobile/ios/fastlane/test_output
+
+mobile/android/fastlane/report.xml
+mobile/android/fastlane/Preview.html
+mobile/android/fastlane/screenshots
+mobile/android/fastlane/test_output
+
+# Bundle artifacts
+*.jsbundle
+
+# CocoaPods
+mobile/ios/Pods/
+
+# Expo
+.expo/
+.expo-shared/
+
+# Misc
+.cache/
+*.bak
+*.swp
+*.swo
+
+# SSL Certificates
+*.pem
+*.key
+*.crt
+*.csr
+!docker/nginx/ssl/.gitkeep
+
+# Backup files
+*.backup
+*.old
+
+# Documentation builds
+docs/_build/
+docs/.doctrees/
+
+# Kubernetes secrets
+deployment/kubernetes/secrets/*.yaml
+!deployment/kubernetes/secrets/.gitkeep
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Sentry
+.sentryclirc

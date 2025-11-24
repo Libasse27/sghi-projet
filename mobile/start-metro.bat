@@ -1,0 +1,9 @@
+@echo off
+echo Killing any existing Metro bundler processes...
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":8081.*LISTENING"') do (
+    echo Killing process %%a...
+    taskkill /F /PID %%a 2>nul
+)
+timeout /t 2 /nobreak >nul
+echo Starting Metro bundler...
+npm start
