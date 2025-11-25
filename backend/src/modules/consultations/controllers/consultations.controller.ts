@@ -29,7 +29,7 @@ export class ConsultationsController {
   constructor(private readonly consultationsService: ConsultationsService) {}
 
   @Post()
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @ApiOperation({ summary: 'Créer une nouvelle consultation' })
   @ApiResponse({ status: 201, description: 'Consultation créée' })
   async create(@Body() createDto: CreateConsultationDto) {
@@ -39,7 +39,7 @@ export class ConsultationsController {
   @Get()
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -70,7 +70,7 @@ export class ConsultationsController {
   @Get('patient/:patientId')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -82,7 +82,7 @@ export class ConsultationsController {
   }
 
   @Get('doctor/:doctorId')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @ApiOperation({ summary: 'Obtenir les consultations d\'un médecin' })
   @ApiResponse({ status: 200, description: 'Consultations du médecin' })
   async findByDoctor(@Param('doctorId') doctorId: string, @Query('date') date?: string) {
@@ -90,7 +90,7 @@ export class ConsultationsController {
   }
 
   @Get('statistics')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR)
   @ApiOperation({ summary: 'Obtenir les statistiques des consultations' })
   @ApiResponse({ status: 200, description: 'Statistiques des consultations' })
   async getStatistics(
@@ -104,7 +104,7 @@ export class ConsultationsController {
   @Get('number/:numeroConsultation')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -119,7 +119,7 @@ export class ConsultationsController {
   @Get(':id')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -132,7 +132,7 @@ export class ConsultationsController {
   }
 
   @Patch(':id')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @ApiOperation({ summary: 'Mettre à jour une consultation' })
   @ApiResponse({ status: 200, description: 'Consultation mise à jour' })
   @ApiResponse({ status: 404, description: 'Consultation non trouvée' })
@@ -141,7 +141,7 @@ export class ConsultationsController {
   }
 
   @Post(':id/start')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Commencer une consultation' })
   @ApiResponse({ status: 200, description: 'Consultation commencée' })
@@ -150,7 +150,7 @@ export class ConsultationsController {
   }
 
   @Post(':id/complete')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Terminer une consultation' })
   @ApiResponse({ status: 200, description: 'Consultation terminée' })
@@ -159,7 +159,7 @@ export class ConsultationsController {
   }
 
   @Post(':id/cancel')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Annuler une consultation' })
   @ApiResponse({ status: 200, description: 'Consultation annulée' })
@@ -168,7 +168,7 @@ export class ConsultationsController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer une consultation' })
   @ApiResponse({ status: 204, description: 'Consultation supprimée' })

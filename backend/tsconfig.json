@@ -18,12 +18,17 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "strict": false,
+    "strictFunctionTypes": false,
+    "noImplicitReturns": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "paths": {
       "@config/*": ["src/config/*"],
       "@modules/*": ["src/modules/*"],
       "@common/*": ["src/common/*"],
       "@database/*": ["src/database/*"],
-      "@shared/*": ["../shared/*"]
+      "@shared/*": ["src/common/*"]
     }
   },
   "include": ["src/**/*"],

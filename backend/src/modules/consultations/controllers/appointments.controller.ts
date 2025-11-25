@@ -32,7 +32,7 @@ export class AppointmentsController {
   @Post()
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -47,7 +47,7 @@ export class AppointmentsController {
   @Get()
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -78,7 +78,7 @@ export class AppointmentsController {
   @Get('today')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -92,7 +92,7 @@ export class AppointmentsController {
   @Get('available-slots')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -112,7 +112,7 @@ export class AppointmentsController {
   }
 
   @Get('doctor/:doctorId/date/:date')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.RECEPTIONIST)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.RECEPTIONIST)
   @ApiOperation({ summary: 'Obtenir les rendez-vous d\'un médecin pour une date' })
   @ApiResponse({ status: 200, description: 'Rendez-vous du médecin' })
   async findByDoctorAndDate(@Param('doctorId') doctorId: string, @Param('date') date: string) {
@@ -122,7 +122,7 @@ export class AppointmentsController {
   @Get(':id')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -137,7 +137,7 @@ export class AppointmentsController {
   @Patch(':id')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -153,7 +153,7 @@ export class AppointmentsController {
   @Post(':id/confirm')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -168,7 +168,7 @@ export class AppointmentsController {
   @Post(':id/cancel')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -181,7 +181,7 @@ export class AppointmentsController {
   }
 
   @Post(':id/complete')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Marquer un rendez-vous comme terminé' })
   @ApiResponse({ status: 200, description: 'Rendez-vous terminé' })
@@ -190,7 +190,7 @@ export class AppointmentsController {
   }
 
   @Post(':id/no-show')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Marquer un rendez-vous comme absence' })
   @ApiResponse({ status: 200, description: 'Rendez-vous marqué comme absence' })
@@ -201,7 +201,7 @@ export class AppointmentsController {
   @Post(':id/send-reminder')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -214,7 +214,7 @@ export class AppointmentsController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer un rendez-vous' })
   @ApiResponse({ status: 204, description: 'Rendez-vous supprimé' })

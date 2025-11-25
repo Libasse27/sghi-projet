@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { EmergencyService } from './emergency.service';
-import { EmergencyController } from './emergency.controller';
-import { Emergency } from './entities/emergency.entity';
+import { EmergencyCase } from './entities/emergency-case.entity';
+import { Triage } from './entities/triage.entity';
+import { EmergencyController } from './controllers/emergency.controller';
+import { EmergencyService } from './services/emergency.service';
+import { TriageService } from './services/triage.service';
+import { EmergencyQueueService } from './services/emergency-queue.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Emergency])],
+  imports: [TypeOrmModule.forFeature([EmergencyCase, Triage])],
   controllers: [EmergencyController],
-  providers: [EmergencyService],
-  exports: [EmergencyService],
+  providers: [EmergencyService, TriageService, EmergencyQueueService],
+  exports: [EmergencyService, TriageService, EmergencyQueueService],
 })
 export class EmergencyModule {}

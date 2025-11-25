@@ -29,7 +29,7 @@ export class MedicalRecordsController {
   constructor(private readonly medicalRecordsService: MedicalRecordsService) {}
 
   @Post()
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @ApiOperation({ summary: 'Créer un nouveau dossier médical' })
   @ApiResponse({ status: 201, description: 'Dossier médical créé' })
   async create(@Body() createDto: CreateMedicalRecordDto) {
@@ -39,7 +39,7 @@ export class MedicalRecordsController {
   @Get('patient/:patientId')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -51,7 +51,7 @@ export class MedicalRecordsController {
   }
 
   @Get('patient/:patientId/statistics')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @ApiOperation({ summary: 'Obtenir les statistiques des dossiers médicaux d\'un patient' })
   @ApiResponse({ status: 200, description: 'Statistiques des dossiers médicaux' })
   async getPatientStatistics(@Param('patientId') patientId: string) {
@@ -61,7 +61,7 @@ export class MedicalRecordsController {
   @Get(':id')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -74,7 +74,7 @@ export class MedicalRecordsController {
   }
 
   @Patch(':id')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @ApiOperation({ summary: 'Mettre à jour un dossier médical' })
   @ApiResponse({ status: 200, description: 'Dossier médical mis à jour' })
   @ApiResponse({ status: 404, description: 'Dossier médical non trouvé' })
@@ -83,7 +83,7 @@ export class MedicalRecordsController {
   }
 
   @Patch(':id/status')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @ApiOperation({ summary: 'Changer le statut d\'un dossier médical' })
   @ApiResponse({ status: 200, description: 'Statut mis à jour' })
   async updateStatus(@Param('id') id: string, @Body('status') status: string) {
@@ -91,7 +91,7 @@ export class MedicalRecordsController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer un dossier médical' })
   @ApiResponse({ status: 204, description: 'Dossier médical supprimé' })

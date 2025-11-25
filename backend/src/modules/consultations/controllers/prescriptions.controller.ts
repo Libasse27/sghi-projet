@@ -29,7 +29,7 @@ export class PrescriptionsController {
   constructor(private readonly prescriptionsService: PrescriptionsService) {}
 
   @Post()
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR)
   @ApiOperation({ summary: 'Créer une nouvelle ordonnance' })
   @ApiResponse({ status: 201, description: 'Ordonnance créée' })
   async create(@Body() createDto: CreatePrescriptionDto) {
@@ -39,7 +39,7 @@ export class PrescriptionsController {
   @Get('patient/:patientId')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.PHARMACIST,
@@ -53,7 +53,7 @@ export class PrescriptionsController {
   @Get('patient/:patientId/active')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.PHARMACIST,
@@ -67,7 +67,7 @@ export class PrescriptionsController {
   @Get('consultation/:consultationId')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.PHARMACIST,
@@ -81,7 +81,7 @@ export class PrescriptionsController {
   @Get('number/:numeroPrescription')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.PHARMACIST,
   )
@@ -95,7 +95,7 @@ export class PrescriptionsController {
   @Get(':id')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.PHARMACIST,
@@ -108,7 +108,7 @@ export class PrescriptionsController {
   }
 
   @Patch(':id')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR)
   @ApiOperation({ summary: 'Mettre à jour une ordonnance' })
   @ApiResponse({ status: 200, description: 'Ordonnance mise à jour' })
   @ApiResponse({ status: 404, description: 'Ordonnance non trouvée' })
@@ -117,7 +117,7 @@ export class PrescriptionsController {
   }
 
   @Post(':id/cancel')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Annuler une ordonnance' })
   @ApiResponse({ status: 200, description: 'Ordonnance annulée' })
@@ -126,7 +126,7 @@ export class PrescriptionsController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer une ordonnance' })
   @ApiResponse({ status: 204, description: 'Ordonnance supprimée' })

@@ -35,7 +35,7 @@ export class PatientsController {
   @Post()
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -50,7 +50,7 @@ export class PatientsController {
   @Get()
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -65,7 +65,7 @@ export class PatientsController {
   @Post('search')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -81,7 +81,7 @@ export class PatientsController {
   @Get('search/quick')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -96,7 +96,7 @@ export class PatientsController {
   @Get('search/blood-group/:bloodGroup')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -108,7 +108,7 @@ export class PatientsController {
   }
 
   @Get('search/expired-insurance')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.RECEPTIONIST)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.RECEPTIONIST)
   @ApiOperation({ summary: 'Obtenir les patients avec assurance expirée' })
   @ApiResponse({ status: 200, description: 'Patients avec assurance expirée' })
   async findExpiredInsurance() {
@@ -116,7 +116,7 @@ export class PatientsController {
   }
 
   @Get('statistics')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN, UserRole.DOCTOR, UserRole.NURSE_CHIEF)
   @ApiOperation({ summary: 'Obtenir les statistiques des patients' })
   @ApiResponse({ status: 200, description: 'Statistiques des patients' })
   async getStatistics() {
@@ -126,7 +126,7 @@ export class PatientsController {
   @Get('number/:numeroPatient')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -142,7 +142,7 @@ export class PatientsController {
   @Get(':id')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.NURSE,
@@ -158,7 +158,7 @@ export class PatientsController {
   @Patch(':id')
   @Roles(
     UserRole.ADMIN,
-    UserRole.SUPER_ADMIN,
+    UserRole.ADMIN,
     UserRole.DOCTOR,
     UserRole.NURSE_CHIEF,
     UserRole.RECEPTIONIST,
@@ -171,7 +171,7 @@ export class PatientsController {
   }
 
   @Post(':id/deactivate')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Désactiver un patient' })
   @ApiResponse({ status: 200, description: 'Patient désactivé' })
@@ -181,7 +181,7 @@ export class PatientsController {
   }
 
   @Post(':id/reactivate')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Réactiver un patient' })
   @ApiResponse({ status: 200, description: 'Patient réactivé' })
@@ -191,7 +191,7 @@ export class PatientsController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer définitivement un patient' })
   @ApiResponse({ status: 204, description: 'Patient supprimé' })
