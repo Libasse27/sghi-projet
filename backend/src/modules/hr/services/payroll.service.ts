@@ -44,7 +44,7 @@ export class PayrollService {
     const endDate = new Date(year, month, 0);
 
     const employees = await this.employeeRepository.find({
-      where: { status: 'ACTIVE' },
+      where: { status: 'ACTIVE' as any },
     });
 
     const payrollResults: PayrollCalculation[] = [];

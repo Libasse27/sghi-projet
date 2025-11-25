@@ -159,9 +159,9 @@ export class EmployeesService {
     return await this.employeeRepository.save(employee) as any as Employee;
   }
 
-  async getEmployeesByDepartment(department: string): Promise<Employee[]> {
+  async getEmployeesByDepartment(department: any): Promise<Employee[]> {
     return await this.employeeRepository.find({
-      where: { department, status: EmployeeStatus.ACTIVE },
+      where: { department: department as any, status: EmployeeStatus.ACTIVE },
       relations: ['user'],
       order: { lastName: 'ASC' },
     });

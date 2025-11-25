@@ -71,9 +71,9 @@ export class BillingService {
     return basePrice + taxAmount;
   }
 
-  async getServicesByCategory(category: string): Promise<PriceList[]> {
+  async getServicesByCategory(category: any): Promise<PriceList[]> {
     return await this.priceListRepository.find({
-      where: { category, isActive: true },
+      where: { category: category as any, isActive: true },
       order: { serviceName: 'ASC' },
     });
   }

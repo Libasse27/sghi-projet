@@ -178,7 +178,7 @@ export class StatisticsService {
     };
 
     for (const patient of patients) {
-      const age = this.calculateAge(patient.dateOfBirth);
+      const age = this.calculateAge(patient.dateNaissance);
 
       if (age <= 10) ageGroups['0-10']++;
       else if (age <= 20) ageGroups['11-20']++;
