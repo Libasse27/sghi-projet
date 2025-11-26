@@ -1,163 +1,88 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
-
-let mainWindow;
+const { createMainWindow } = require('./windows/main.window');
+const { createPrintWindow } = require('./windows/print.window');
+const { initializeMenu } = require('./menu');
+const { initializeUpdater } = require('./updater');
+const { initializeTray } = require('./tray');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
+const isMac = process.platform === 'darwin';
 
-function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 900,
-    minWidth: 1200,
-    minHeight: 700,
-    title: 'SGHI - Système de Gestion Hospitalière',
-    icon: path.join(__dirname, '../public/icon.png'),
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
-    },
-    backgroundColor: '#f0f2f5',
-    show: false,
-  });
+let mainWindow = null;
+let printWindow = null;
+let tray = null;
 
-  // Afficher la fenêtre une fois prête pour éviter le flash
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
-  });
+const gotTheLock = app.requestSingleInstanceLock();
 
-  if (isDevelopment) {
-    // En développement, charger depuis le serveur Vite
-    mainWindow.loadURL('http://localhost:5173');
-    // Ouvrir les DevTools
-    mainWindow.webContents.openDevTools();
-  } else {
-    // En production, charger le fichier HTML
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
-  }
-
-  // Créer le menu de l'application
-  createMenu();
-
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
-}
-
-function createMenu() {
-  const template = [
-    {
-      label: 'Fichier',
-      submenu: [
-        {
-          label: 'Nouveau patient',
-          accelerator: 'CmdOrCtrl+N',
-          click: () => {
-            mainWindow.webContents.send('navigate', '/patients/create');
-          },
-        },
-        { type: 'separator' },
-        {
-          label: 'Paramètres',
-          accelerator: 'CmdOrCtrl+,',
-          click: () => {
-            mainWindow.webContents.send('navigate', '/settings');
-          },
-        },
-        { type: 'separator' },
-        {
-          label: 'Quitter',
-          accelerator: 'CmdOrCtrl+Q',
-          click: () => {
-            app.quit();
-          },
-        },
-      ],
-    },
-    {
-      label: 'Édition',
-      submenu: [
-        { role: 'undo', label: 'Annuler' },
-        { role: 'redo', label: 'Refaire' },
-        { type: 'separator' },
-        { role: 'cut', label: 'Couper' },
-        { role: 'copy', label: 'Copier' },
-        { role: 'paste', label: 'Coller' },
-        { role: 'selectAll', label: 'Tout sélectionner' },
-      ],
-    },
-    {
-      label: 'Affichage',
-      submenu: [
-        { role: 'reload', label: 'Actualiser' },
-        { role: 'forceReload', label: 'Forcer l\'actualisation' },
-        { type: 'separator' },
-        { role: 'resetZoom', label: 'Zoom par défaut' },
-        { role: 'zoomIn', label: 'Zoomer' },
-        { role: 'zoomOut', label: 'Dézoomer' },
-        { type: 'separator' },
-        { role: 'togglefullscreen', label: 'Plein écran' },
-      ],
-    },
-    {
-      label: 'Aide',
-      submenu: [
-        {
-          label: 'Documentation',
-          click: async () => {
-            const { shell } = require('electron');
-            await shell.openExternal('https://sghi.com/docs');
-          },
-        },
-        { type: 'separator' },
-        {
-          label: 'À propos',
-          click: () => {
-            mainWindow.webContents.send('show-about');
-          },
-        },
-      ],
-    },
-  ];
-
-  // Ajouter le menu développeur en mode développement
-  if (isDevelopment) {
-    template.push({
-      label: 'Développeur',
-      submenu: [
-        { role: 'toggleDevTools', label: 'Outils de développement' },
-      ],
-    });
-  }
-
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
-}
-
-// Événement ready
-app.whenReady().then(() => {
-  createWindow();
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
     }
   });
+
+  app.whenReady().then(() => {
+    mainWindow = createMainWindow(isDevelopment);
+    initializeMenu(mainWindow);
+    tray = initializeTray(mainWindow);
+    if (!isDevelopment) initializeUpdater(mainWindow);
+
+    app.on('activate', () => {
+      if (BrowserWindow.getAllWindows().length === 0) {
+        mainWindow = createMainWindow(isDevelopment);
+      }
+    });
+  });
+}
+
+app.on('window-all-closed', () => {
+  if (!isMac) app.quit();
 });
 
-// Quitter l'application quand toutes les fenêtres sont fermées (sauf sur macOS)
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
+app.on('before-quit', () => {
+  if (tray) tray.destroy();
+});
+
+// IPC Handlers
+ipcMain.on('minimize-window', (event) => {
+  const window = BrowserWindow.fromWebContents(event.sender);
+  if (window) window.minimize();
+});
+
+ipcMain.on('maximize-window', (event) => {
+  const window = BrowserWindow.fromWebContents(event.sender);
+  if (window) {
+    window.isMaximized() ? window.unmaximize() : window.maximize();
   }
 });
 
-// Gérer les erreurs non capturées
-process.on('uncaughtException', (error) => {
-  console.error('Uncaught Exception:', error);
+ipcMain.on('close-window', (event) => {
+  const window = BrowserWindow.fromWebContents(event.sender);
+  if (window) window.close();
 });
 
-process.on('unhandledRejection', (error) => {
-  console.error('Unhandled Rejection:', error);
+ipcMain.handle('get-app-version', () => app.getVersion());
+
+ipcMain.on('show-notification', (event, options) => {
+  const { Notification } = require('electron');
+  if (Notification.isSupported()) {
+    const notification = new Notification({
+      title: options.title,
+      body: options.body,
+      icon: options.icon,
+    });
+    notification.on('click', () => {
+      if (mainWindow) {
+        if (mainWindow.isMinimized()) mainWindow.restore();
+        mainWindow.focus();
+      }
+    });
+    notification.show();
+  }
 });
+
+module.exports = { getMainWindow: () => mainWindow };
